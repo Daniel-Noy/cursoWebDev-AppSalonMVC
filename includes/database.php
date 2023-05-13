@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 
 $db = new mysqli(
     $_ENV["DB_HOST"],
@@ -7,7 +6,6 @@ $db = new mysqli(
     $_ENV["DB_PASS"],
     $_ENV["DB_NAME"]
 );
-
 $db->set_charset("utf8");
 
 if (!$db) {

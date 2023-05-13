@@ -38,7 +38,7 @@ class Email {
         $contenido = "<html>";
         $contenido .= "<p><strong> Hola " . $this->nombre . "</strong></p>";
         $contenido .= "<p>Para confirmar tu cuenta entra en el sig. enlace</p>";
-        $contenido .= "<p>Presiona aqui: <a href='appcitas-salon.alwaysdata.net/cuenta/confirmar?token={$this->token}'>Confirmar Cuenta</a></p>";
+        $contenido .= "<p>Presiona aqui: <a href='https://appcitas-salon.alwaysdata.net/cuenta/confirmar?token={$this->token}'>Confirmar Cuenta</a></p>";
         $contenido .= "<p>Si tu no solicitaste esto, puedes ignorar este email</p>";
         $contenido .= "</html>";
         
