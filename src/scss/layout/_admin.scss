@@ -1,0 +1,37 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.citas {
+    li {
+        padding: 1rem;
+        border-top: 1px solid v.$blanco;
+        transition: background-color .2s;
+
+        p {
+            font-weight: v.$bold;
+            color: v.$azul;
+        }
+        
+        span,
+        .servicio {
+            color: v.$blanco;
+            font-weight: v.$regular;
+
+        }
+
+        &:hover {
+            background-color: transparentize(v.$blanco, .9);
+        }
+    }
+
+}
+
+.servicios {
+    @extend .citas;
+
+    .acciones {
+        @include m.desktop {
+            justify-content: flex-start;
+        }
+    }
+}

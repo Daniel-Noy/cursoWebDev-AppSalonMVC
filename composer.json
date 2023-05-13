@@ -1,0 +1,22 @@
+{
+    "name": "pc/11.app-salon_php-mvc",
+    "description": "Proyecto PHP 8 con MVC",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers",
+            "Model\\" : "./models",
+            "Classes\\" : "./classes"
+        }
+    },
+    "authors": [
+        {
+            "name": "Daniel Noyola",
+            "email": "pepenoyola13@gmail.com"
+        }
+    ],
+    "require": {
+        "phpmailer/phpmailer": "^6.8"
+    }
+}

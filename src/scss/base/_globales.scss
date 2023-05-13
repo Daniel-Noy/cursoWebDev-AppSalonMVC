@@ -1,0 +1,46 @@
+@use 'variables' as v;
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+    height: 100%;
+}
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: v.$negro;
+    color: v.$blanco;
+    font-family: v.$fuente_principal;
+    font-size: 1.6rem;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+a {
+    text-decoration: none;
+}
+img {
+    max-width: 100%;
+}
+ul, ol {
+    list-style: none;
+    padding: 0;
+}
+//? Sweet alert
+.swal2-container.swal2-center > .swal2-popup  {
+    font-size: 1.4rem;
+}
+
+.contenedor {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.texto-izquierda {
+    text-align: left;
+}
+.fw-bold {
+    font-weight: bold;
+}

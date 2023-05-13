@@ -1,0 +1,56 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.contenedor-app {
+    min-height: 100vh;
+
+    @include m.tablet {
+        display: grid;
+        grid-template-columns: 2fr 3fr;
+        height: 100vh;
+    }
+    @include m.desktop {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .imagen {
+        min-height: 20rem;
+        
+        background-image: url("../img/background.webp");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .app {
+        width: 100%;
+        padding: 2.5rem;
+        margin: 0 auto;
+        @include m.tablet {
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+    }
+}
+
+.barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+
+    .boton {
+        @include m.boton(v.$boton, v.$blanco);
+        margin-top: 0;
+    }
+}
+
+.barra-servicios {
+    margin-bottom: 2.5rem;
+    @include m.tablet {
+        display: flex;
+        justify-content: space-between;
+        gap: .5rem;
+
+    }
+}

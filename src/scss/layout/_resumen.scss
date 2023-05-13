@@ -1,0 +1,22 @@
+@use 'base/variables' as v;
+
+.resumen {
+    p {
+        margin-bottom: 1rem;
+        text-transform: capitalize;
+    }
+
+    span {
+        color: v.$azul;
+        font-weight: v.$bold;
+        font-size: 2.4rem;
+    }
+}
+
+.contenedor-servicio {
+    border-bottom: 1px solid v.$gris;
+
+    &:last-of-type {
+        margin-bottom: 3rem;
+    }
+}
