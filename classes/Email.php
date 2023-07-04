@@ -18,11 +18,11 @@ class Email {
     protected function getConfig(string $subject) {
         $mail = new PHPMailer();
         $mail->isSMTP();
-        $mail->Host = 'sandbox.smtp.mailtrap.io';
+        $mail->Host = $_ENV["EMAIL_HOST"];
         $mail->SMTPAuth = true;
-        $mail->Port = 2525;
-        $mail->Username = '9221adb293d6ee';
-        $mail->Password = '4fd4e01c68916b';
+        $mail->Port = $_ENV["EMAIL_PORT"];
+        $mail->Username = $_ENV["EMAIL_USER"];
+        $mail->Password = $_ENV["EMAIL_PASS"];
         $mail->CharSet = 'UTF-8';
 
         $mail->setFrom("cuentas@appsalon.com");
@@ -38,7 +38,7 @@ class Email {
         $contenido = "<html>";
         $contenido .= "<p><strong> Hola " . $this->nombre . "</strong></p>";
         $contenido .= "<p>Para confirmar tu cuenta entra en el sig. enlace</p>";
-        $contenido .= "<p>Presiona aqui: <a href='localhost:3000/cuenta/confirmar?token={$this->token}'>Confirmar Cuenta</a></p>";
+        $contenido .= "<p>Presiona aqui: <a href='" . $_ENV["APP_URL"] . "/cuenta/confirmar?token={$this->token}'>Confirmar Cuenta</a></p>";
         $contenido .= "<p>Si tu no solicitaste esto, puedes ignorar este email</p>";
         $contenido .= "</html>";
         
@@ -53,7 +53,7 @@ class Email {
         $contenido = "<html>";
         $contenido .= "<p><strong> Hola " . $this->nombre . "</strong></p>";
         $contenido .= "<p>Para restablecer tu contraseña entra en el sig. enlace</p>";
-        $contenido .= "<p>Presiona aqui: <a href='http://localhost:3000/cuenta/password/reset?token={$this->token}'>Recuperar contraseña</a></p>";
+        $contenido .= "<p>Presiona aqui: <a href='" . $_ENV["APP_URL"] . "/cuenta/password/reset?token={$this->token}'>Recuperar contraseña</a></p>";
         $contenido .= "<p>Si tu no solicitaste esto, puedes ignorar este email</p>";
         $contenido .= "</html>";
 
