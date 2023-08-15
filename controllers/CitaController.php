@@ -5,6 +5,7 @@ use MVC\Router;
 
 class CitaController {
     public static function index(Router $router) {
+        isAuth();
 
         $usuario = $_SESSION ?? null;
 
