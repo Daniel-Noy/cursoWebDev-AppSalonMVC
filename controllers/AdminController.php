@@ -6,6 +6,7 @@ use MVC\Router;
 
 class AdminController {
     public static function index(Router $router) {
+        isAuth(true);
         $fecha = $_GET["fecha"] ?? date("Y-m-d");
         $fechaGet = explode("-", $fecha);
 

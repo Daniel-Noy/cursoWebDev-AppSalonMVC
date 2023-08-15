@@ -14,25 +14,27 @@ function s($html) : string {
     return $s;
 }
 
-// Revisa que el usuario este autenticado
-// function isAuth() {
-//     if(isset($_SESSION["login"])) {
-//         header("Location: /citas/agendar");
-//     }
-// }
-
-// function isAdmin() {
-//     if(isset($_SESSION["admin"])) {
-//         header("Location: /admin");
-//     }
-// }
-
-function auth() {
-    if( !empty($_SESSION) ) {
-        if($_SESSION["admin"] === "1") {
-            header("Location: /admin");
-        } else if ($_SESSION["login"]) {
-            header("Location: /citas/agendar");
-        }
+//? Funciones de autenticacion
+function isAuth(bool $isAdmin = false) : void {
+    if ($isAdmin) {
+        if (!isAdmin()) header('Location: /');
     }
+
+    if (!isUser()) header('Location: /');
+}
+
+function isUser() : bool {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+
+    return isset($_SESSION['nombre']);
+}
+
+function isAdmin() : bool {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+
+    return boolval($_SESSION['admin']);
 }

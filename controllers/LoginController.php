@@ -9,10 +9,11 @@ use MVC\Router;
 
 class LoginController {
     public static function login(Router $router) {
+        if (isAdmin()) header('Location: /admin');
+        if (isUser()) header('Location: /citas/agendar');
+
         $auth = new Usuario();
         $alertas = [];
-        
-        auth();
 
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             $auth = new Usuario($_POST);
@@ -49,6 +50,9 @@ class LoginController {
     }
 
     public static function logout() {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
         $_SESSION = [];
         header("Location: /");
     }

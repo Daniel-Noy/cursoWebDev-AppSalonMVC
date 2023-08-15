@@ -8,3 +8,7 @@
 .boton-eliminar {
     @include m.boton(v.$rojo, v.$blanco);
 }
+
+.boton-advertencia {
+    @include m.boton(v.$boton, v.$blanco);
+}

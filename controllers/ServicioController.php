@@ -5,8 +5,9 @@ use Model\Servicio;
 use MVC\Router;
 
 class ServicioController {
-    public static function index(Router $router) {
-
+    public static function index(Router $router)
+    {
+        isAuth(true);
         $servicios = Servicio::all();
 
         $router->render("/servicios/index", [
@@ -15,7 +16,9 @@ class ServicioController {
         ]);
     }
 
-    public static function crear(Router $router) {
+    public static function crear(Router $router)
+    {
+        isAuth(true);
         $servicio = new Servicio;
         $alertas = Servicio::getAlertas();
         
@@ -39,8 +42,9 @@ class ServicioController {
         ]);
     }
 
-    public static function actualizar(Router $router) {
-
+    public static function actualizar(Router $router)
+    {
+        isAuth(true);
         $id = $_GET["id"];
         if(!is_numeric($id)) return;
 
@@ -67,8 +71,9 @@ class ServicioController {
         ]);
     }
 
-    public static function eliminar(Router $router) {
-        
+    public static function eliminar(Router $router)
+    {
+        isAuth(true);
         if( $_SERVER["REQUEST_METHOD"] === "POST") {
             $servicio = Servicio::find($_POST["id"]);
             $res = $servicio->eliminar();

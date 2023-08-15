@@ -19,12 +19,6 @@ class Router
 
     public function comprobarRutas()
     {
-        session_start();
-
-        $isAuth = $_SESSION['login'] ?? null;
-        $isAdmin = $_SESSION["admin"] ?? null;
-
-        
         $currentUrl = strtok($_SERVER['REQUEST_URI'], '?') ?? '/';
         $method = $_SERVER['REQUEST_METHOD'];
         
@@ -33,20 +27,6 @@ class Router
         } else {
             $fn = $this->postRoutes[$currentUrl] ?? null;
         }
-
-        // Proteccion de rutas
-        $rutas_protegidas = ["/citas/agendar"];
-        $rutas_admin = ["/admin", "/admin/servicios", "/admin/servicios/crear", "/admin/servicios/actualizar", "/admin/servicios/eliminar"];
-
-        if( in_array($currentUrl, $rutas_protegidas) && !$isAuth) {
-            header("Location: /");
-        }
-
-        if ( in_array($currentUrl, $rutas_admin) && !$isAdmin) {
-            if($isAuth) header("Location: /citas/agendar");
-            else header("Location: /");
-        }
-
 
         if ( $fn ) {
             // Call user fn va a llamar una función cuando no sabemos cual sera

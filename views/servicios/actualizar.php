@@ -6,5 +6,8 @@
 <form class="formulario" method="POST">
 
     <?php include_once "formulario.php" ?>
-    <input type="submit" class="boton" value="Actualizar Servicio">
+    <div class="botones">    
+        <input type="submit" class="boton" value="Actualizar Servicio">
+        <a href="/admin/servicios" class="boton-advertencia">Regresar</a>
+    </div>
 </form>
