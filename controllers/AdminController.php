@@ -21,10 +21,10 @@ class AdminController {
         $consulta .= " FROM citas  ";
         $consulta .= " LEFT JOIN usuarios ";
         $consulta .= " ON citas.usuarioId=usuarios.id  ";
-        $consulta .= " LEFT JOIN citasServicios ";
-        $consulta .= " ON citasServicios.citaId=citas.id ";
+        $consulta .= " LEFT JOIN citasservicios ";
+        $consulta .= " ON citasservicios.citaId=citas.id ";
         $consulta .= " LEFT JOIN servicios ";
-        $consulta .= " ON servicios.id=citasServicios.servicioId ";
+        $consulta .= " ON servicios.id=citasservicios.servicioId ";
         $consulta .= " WHERE fecha =  '{$fecha}' ";
 
         $citas = AdminCita::SQL($consulta);
