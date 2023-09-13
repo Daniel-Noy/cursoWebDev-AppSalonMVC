@@ -29,7 +29,6 @@ class LoginController {
                         $_SESSION["id"] = $usuario->id;
                         $_SESSION["nombre"] = $usuario->nombre;
                         $_SESSION["email"] = $usuario->email;
-                        $_SESSION["login"] = true;
                         $_SESSION["admin"] = $usuario->admin;
 
                         if($_SESSION["admin"]) {
@@ -38,6 +37,8 @@ class LoginController {
                             header("Location: /citas/agendar");
                         }
                     }
+                } else {
+                    Usuario::setAlerta('error', 'Aun no te has registrado');
                 }
             }
         }
@@ -45,7 +46,7 @@ class LoginController {
         $alertas = Usuario::getAlertas();
         $router->render("auth/login", [
             "auth" => $auth,
-            "alertas" => $alertas
+            "alertas" => Usuario::getAlertas()
         ]);
     }
 
@@ -71,15 +72,17 @@ class LoginController {
                 if(!$res->num_rows) {
                     // hashear password
                     $usuario->hashPassword();
-                    $usuario->crearToken();
-
-                    $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
-                    $email->enviarConfirmacion();
+                    
+                    //? Confirmación deshabilitada para la demostración
+                    // $usuario->crearToken();
+                    // $email = new Email($usuario->email, $usuario->nombre, $usuario->token);
+                    // $email->enviarConfirmacion();
 
                     $res = $usuario->guardar();
 
                     if($res) {
-                        header("Location: /cuenta/confirmar/enviado");
+                        // header("Location: /cuenta/confirmar/enviado"); //? Confirmación deshabilitada para la demostración
+                        header("Location: /");
                     }
 
                 } else {

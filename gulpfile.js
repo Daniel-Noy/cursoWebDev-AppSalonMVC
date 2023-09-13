@@ -19,13 +19,13 @@ function css() {
 }
 
 
-function javascript() {
-    return src(paths.js)
-    .pipe(sourcemaps.init())
-    .pipe(terser())
-    .pipe(sourcemaps.write('.'))
-    .pipe(dest('public/build/js'));
-}
+// function javascript() {
+//     return src(paths.js)
+//     .pipe(sourcemaps.init())
+//     .pipe(terser())
+//     .pipe(sourcemaps.write('.'))
+//     .pipe(dest('public/build/js'));
+// }
 
 function versionWebp() {
     return src(paths.imagenes)
@@ -42,5 +42,5 @@ function watchArchivos() {
 
 exports.css = css;
 exports.watchArchivos = watchArchivos;
-exports.default = parallel(css, javascript, versionWebp, watchArchivos );
-exports.build = parallel( css, javascript, versionWebp );
+exports.default = parallel(css, versionWebp, watchArchivos );
+exports.build = parallel( css, versionWebp );

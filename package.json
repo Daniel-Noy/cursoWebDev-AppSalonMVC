@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "gulp",
     "build": "gulp build",
-    "watch": "gulp watchArchivos"
+    "watch": "gulp watchArchivos",
+    "serve": "cd public && php -S localhost:3000"
   },
   "author": "",
   "license": "ISC",

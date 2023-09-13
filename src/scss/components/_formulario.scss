@@ -13,11 +13,18 @@
 
 .campo {
     display: flex;
+    flex-direction: column;
     margin-bottom: 2rem;
     align-items: center;
+    @include m.telefono {
+        flex-direction: row;
+    }
 
     label {
-        flex: 0 0 10rem;
+        flex: 0 0 3rem;
+        @include m.telefono {
+            flex: 0 0 13rem;
+        }
     }
     input {
         width: 100%;

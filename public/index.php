@@ -17,12 +17,12 @@ $router->post("/", [LoginController::class, "login"]);
 
 $router->get("/cuenta/logout", [LoginController::class, "logout"]);
 
-// Recuperar contraseña
+// Recuperar contraseña //? Confirmación deshabilitada para la demostración
 $router->get("/cuenta/password/olvide", [LoginController::class, "olvide"]);
-$router->post("/cuenta/password/olvide", [LoginController::class, "olvide"]);
+// $router->post("/cuenta/password/olvide", [LoginController::class, "olvide"]);
 
-$router->get("/cuenta/password/reset", [LoginController::class, "resetPass"]);
-$router->post("/cuenta/password/reset", [LoginController::class, "resetPass"]);
+// $router->get("/cuenta/password/reset", [LoginController::class, "resetPass"]);
+// $router->post("/cuenta/password/reset", [LoginController::class, "resetPass"]);
 
 // Crear cuenta
 $router->get("/cuenta/crear", [LoginController::class, "crear"]);

@@ -36,5 +36,8 @@ function isAdmin() : bool {
         session_start();
     }
 
-    return boolval($_SESSION['admin']);
+    if (isset($_SESSION['admin'])){
+        return boolval($_SESSION['admin']);
+    }
+    return false;
 }

@@ -100,11 +100,13 @@ class Usuario extends ActiveRecord {
         if(!$res) {
             self::$alertas['error'][] = "Contraseña incorrecta";
         } else {
-            if(!$this->confirmado) {
-                self::$alertas['error'][] = "Tu cuenta aun no ha sido confirmada";
-            } else {
-                return true;
-            }
+            //? Confirmación deshabilitada para la demostración
+            // if(!$this->confirmado) {
+            //     self::$alertas['error'][] = "Tu cuenta aun no ha sido confirmada";
+            // } else {
+            //     return true;
+            // }
+            return true;
         }
     }
 
