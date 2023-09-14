@@ -66,8 +66,14 @@
 </div>
 
 <?php 
+    // $script = "
+    // <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    // <script src='/build/js/app.js'></script>
+    // "
+    
     $script = "
     <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-    <script src='/build/js/app.js'></script>
+    <script type='module' src='/build/js/app2.js'></script>
     "
+    
 ?>
