@@ -1,2 +1,102 @@
-let paso=1;const pasoInicial=1,pasoFinal=3,cita={id:"",nombre:"",fecha:"",hora:"",servicios:[]};function iniciarApp(){mostrarSeccion(),tabs(),botonesPaginador(),paginaSiguiente(),paginaAnterior(),consultarAPI(),idCliente(),nombreCliente(),seleccionarFecha(),seleccionarHora(),mostrarResumen()}function mostrarSeccion(){const e=document.querySelector(".seccion.mostrar");e&&e.classList.remove("mostrar");document.querySelector("#paso-"+paso).classList.add("mostrar");const t=document.querySelector(".actual")??null;t&&t.classList.remove("actual");document.querySelector(`[data-paso="${paso}"]`).classList.add("actual")}function tabs(){document.querySelectorAll(".tabs button").forEach(e=>{e.addEventListener("click",e=>{const t=e.target;paso=parseInt(t.dataset.paso),mostrarSeccion(),botonesPaginador()})})}function botonesPaginador(){const e=document.querySelector("#anterior"),t=document.querySelector("#siguiente");1===paso&&(e.classList.add("ocultar"),t.classList.remove("ocultar")),3===paso&&(e.classList.remove("ocultar"),t.classList.add("ocultar"),mostrarResumen()),paso>1&&paso<3&&(t.classList.remove("ocultar"),e.classList.remove("ocultar")),mostrarSeccion()}function paginaAnterior(){document.querySelector("#anterior").addEventListener("click",()=>{1!==paso&&(paso--,botonesPaginador())})}function paginaSiguiente(){document.querySelector("#siguiente").addEventListener("click",()=>{3!==paso&&(paso++,botonesPaginador())})}async function consultarAPI(){try{const e=location.origin+"/api/servicios",t=await fetch(e);mostrarServicios(await t.json())}catch(e){console.log(e)}}function mostrarServicios(e){e.forEach(e=>{const{id:t,nombre:a,precio:o}=e,n=document.createElement("P");n.classList.add("nombre-servicio"),n.textContent=a;const c=document.createElement("P");c.classList.add("precio-servicio"),c.textContent="$"+o;const r=document.createElement("DIV");r.classList.add("servicio"),r.dataset.idServicio=t,r.appendChild(n),r.appendChild(c),r.onclick=()=>{seleccionarServicio(e)};document.querySelector("#servicios").appendChild(r)})}function seleccionarServicio(e){const{id:t}=e,{servicios:a}=cita,o=document.querySelector(`[data-id-servicio="${t}"]`);a.some(e=>e.id===t)?(cita.servicios=a.filter(e=>e.id!==t),o.classList.remove("seleccionado")):(cita.servicios=[...a,e],o.classList.add("seleccionado"))}function idCliente(){const e=document.querySelector("#id");cita.id=e.value}function nombreCliente(){const e=document.querySelector("#nombre");e.addEventListener("change",t=>{cita.nombre=e.value}),cita.nombre=e.value}function seleccionarFecha(){const e=formatearFecha();cita.fecha=e;const t=document.querySelector("#fecha");t.value=e,t.setAttribute("min",e),t.addEventListener("change",e=>{const t=new Date(e.target.value).getDay();[5,6].includes(t)?(e.target.value="",mostrarAlerta("Los sabados y domingos no abrimos","error")):cita.fecha=e.target.value})}function seleccionarHora(){document.querySelector("#hora").addEventListener("change",e=>{const t=e.target.value,a=t.split(":")[0];parseInt(a)<10||parseInt(a)>18?(e.target.value="",mostrarAlerta("Abrimos a las 10:00 AM y cerramos a las 06:00 PM","error")):cita.hora=t})}function mostrarResumen(){const e=document.querySelector("#paso-3 .resumen");for(;e.firstChild;)e.removeChild(e.firstChild);if(Object.values(cita).includes("")||0===cita.servicios.length){const t=document.createElement("H2");return t.className="aviso",t.textContent="Llena todos los datos para continuar",void e.appendChild(t)}const{nombre:t,fecha:a,hora:o,servicios:n}=cita,c=document.createElement("H3");c.textContent="Resumen de servicios",e.appendChild(c);let r=0;n.forEach(t=>{const{precio:a,nombre:o}=t,n=document.createElement("DIV");n.className="contenedor-servicio";const c=document.createElement("P");c.textContent=o;const i=document.createElement("P");i.innerHTML="<span>Precio:</span> $"+a,n.appendChild(c),n.appendChild(i),e.appendChild(n),r+=parseFloat(a)});const i=new Date(a),s=i.getDate()+2,l=i.getMonth(),d=i.getFullYear(),u=new Date(Date.UTC(d,l,s)).toLocaleDateString("es-MX",{weekday:"long",day:"2-digit",year:"numeric",month:"long"}),m=document.createElement("P");m.innerHTML="<span>Total:</span> $"+r,e.appendChild(m);const p=document.createElement("H3");p.textContent="Resumen de la cita",e.appendChild(p);const h=document.createElement("P");h.innerHTML='<span class="resaltado">Nombre:</span> '+t,e.appendChild(h);const v=document.createElement("P");v.innerHTML='<span class="resaltado">Fecha:</span> '+u,e.appendChild(v);const f=document.createElement("P");f.innerHTML=`<span class="resaltado">Hora:</span> ${o}hrs`,e.appendChild(f);const g=document.createElement("BUTTON");g.className="boton",g.textContent="Reservar Cita",g.onclick=reservarCita,e.appendChild(g)}async function reservarCita(){const{id:e,fecha:t,hora:a,servicios:o}=cita,n=o.map(e=>e.id),c=new FormData;c.append("usuarioId",e),c.append("fecha",t),c.append("hora",a),c.append("servicios",n);try{const e=location.origin+"/api/citas",t=await fetch(e,{method:"POST",body:c});(await t.json()).resultado&&Swal.fire("Cita creada","Se ha agendado tu cita correctamente","success").then(()=>{window.location.reload()})}catch(e){Swal.fire({icon:"error",title:"Error",text:"Hubo un error al guardar la cita"})}}function formatearFecha(){const e=new Date;return`${e.toLocaleString("default",{year:"numeric"})}-${e.toLocaleString("default",{month:"2-digit"})}-${e.toLocaleString("default",{day:"2-digit"})}`}function mostrarAlerta(e,t){if(document.querySelector(".alerta"))return;const a=document.createElement("DIV");a.className="alerta "+t,a.textContent=e;document.querySelector(".formulario").appendChild(a),setTimeout(()=>{a.remove()},5e3)}document.addEventListener("DOMContentLoaded",()=>{iniciarApp()});
-//# sourceMappingURL=app.js.map
+import { Cita } from "./modules/Cita.js";
+import { Fecha } from "./modules/Fecha.js";
+import { UI } from "./modules/UI.js";
+
+document.addEventListener('DOMContentLoaded', iniciarApp);
+
+const inputId = document.querySelector('#id');
+const inputNombre = document.querySelector('#nombre');
+const inputFecha = document.querySelector('#fecha');
+const inputHora = document.querySelector('#hora');
+const paginaAnt = document.querySelector('#anterior');
+const paginaSig = document.querySelector('#siguiente');
+
+const ui = new UI;
+const fecha = new Fecha;
+const cita = new Cita({
+    id: inputId.value,
+    nombre: inputNombre.value,
+    fecha: fecha.fechaActual()
+});
+
+function iniciarApp() {
+    eventListeners();
+    cargarServicios();    
+    tabs();
+
+    limitarFechasDisponibles(inputFecha);
+    ui.mostrarSeccion();
+}
+
+function eventListeners() {
+    inputNombre.addEventListener('input', editarNombreCita);
+    inputFecha.addEventListener('input', cita.editarFechaCita);
+    inputHora.addEventListener('input', cita.editarHoraCita);
+    
+    paginaAnt.addEventListener('click', ui.paginaAnterior);
+    paginaSig.addEventListener('click', ui.paginaSiguiente);
+}
+
+function tabs() {
+    const botones = document.querySelectorAll('.tabs button');
+
+    botones.forEach( boton => {
+        boton.addEventListener('click', (e)=> {
+            const boton = e.target;
+            ui.paso = parseInt(boton.dataset.paso);
+            ui.mostrarSeccion();
+            ui.botonesPaginador();
+            if(ui.paso === ui.pasoFinal) {
+                ui.mostrarResumen(cita);
+            }
+        })
+    })
+}
+
+async function obtenerServiciosApi() {
+    try {
+        const url = `${location.origin}/api/servicios`;
+        const res = await fetch(url);
+        const servicios = await res.json();
+        return servicios;
+
+    }  catch (err) {
+        console.log(err);
+    }
+}
+
+function seleccionarServicios(servicios) {
+    const tarjetasServicios = document.querySelectorAll('.servicio');
+    tarjetasServicios.forEach(tarjeta => {
+        tarjeta.addEventListener('click', (e)=> {
+            const servicio = servicios.find(e => e.id === tarjeta.dataset.idServicio);
+            cita.seleccionarServicio(e, servicio);
+        });
+    })
+}
+
+async function cargarServicios() {
+    const servicios = await obtenerServiciosApi();
+    ui.mostrarServicios(servicios);
+    seleccionarServicios(servicios);
+}
+
+function editarNombreCita() {
+    cita.nombre = inputNombre.value.trim()
+}
+
+function fechaActual() {
+    const fechaActual = new Date();
+    const year = fechaActual.toLocaleString("default", { year: "numeric" });
+    const mes = fechaActual.toLocaleString("default", { month: "2-digit" });
+    const dia = fechaActual.toLocaleString("default", { day: "2-digit" });
+
+    const fechaFormateada = `${year}-${mes}-${dia}`
+
+    return fechaFormateada;
+}
+
+function limitarFechasDisponibles() {
+    inputFecha.value = fechaActual();
+    inputFecha.setAttribute('min', fechaActual());
+}

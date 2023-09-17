@@ -8,3 +8,4 @@
     <?php include_once "formulario.php" ?>
     <input type="submit" class="boton" value="Guardar Servicio">
 </form>
+<a href="/admin" class="boton">Regresar</a>

@@ -49,9 +49,10 @@ $router->post("/admin/servicios/actualizar", [ServicioController::class, "actual
 $router->post("/admin/servicios/eliminar", [ServicioController::class, "eliminar"]);
 
 // API Citas
-$router->get("/api/servicios", [ApiController::class, "index"]);
-$router->post("/api/citas", [ApiController::class, "guardar"]);
-$router->post("/api/eliminar", [ApiController::class, "eliminar"]);
+$router->get("/api/servicios", [ApiController::class, "obtenerServicios"]);
+$router->post("/api/citas", [ApiController::class, "obtenerCitas"]);
+$router->post("/api/citas/guardar", [ApiController::class, "guardarCita"]);
+$router->post("/api/citas/eliminar", [ApiController::class, "eliminarCita"]);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

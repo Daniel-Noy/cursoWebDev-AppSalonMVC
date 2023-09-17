@@ -1,6 +1,11 @@
 @use 'base/variables' as v;
 @use 'base/mixins' as m;
 
+#citas-container {
+    margin-top: 2rem;
+    min-height: 40rem;
+}
+
 .seccion {
     display: none;
     text-align: center;

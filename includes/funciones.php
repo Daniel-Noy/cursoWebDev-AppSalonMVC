@@ -41,3 +41,10 @@ function isAdmin() : bool {
     }
     return false;
 }
+
+function enRegistro(array $lista, string $id) {
+    $registro = array_filter($lista, function($e) use($id){
+        return $e['id'] === $id;
+    });
+    return $registro;
+}

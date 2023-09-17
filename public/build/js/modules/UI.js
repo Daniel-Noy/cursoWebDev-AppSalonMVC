@@ -1,3 +1,5 @@
+import { eliminarCita } from "./funciones.js";
+
 export class UI {
     paso = 1;
     pasoInicial = 1;
@@ -163,4 +165,72 @@ export class UI {
         botonReservar.onclick = cita.reservarCita;
         resumenDiv.appendChild(botonReservar);
         }
+    
+    mostrarCitas(citas) {
+        const contenedor = document.querySelector('#citas-container');
+        this.limpiarHTML(contenedor);
+        const listaCitas = document.createElement('UL');
+        listaCitas.className = 'citas';
+
+        if(citas.length === 0) {
+            const aviso = document.createElement('H3');
+            aviso.textContent = 'No hay citas resevadas este día';
+            contenedor.appendChild(aviso);
+            return;
+        }
+
+        citas.forEach(cita => {
+            const citaLi = document.createElement('LI');
+            citaLi.id = cita.id;
+            citaLi.innerHTML = `
+            <p>ID: <span>${cita.id}</span></p>
+            <p>Hora: <span>${cita.hora}</span></p>
+            <p>Cliente: <span>${cita.cliente}</span></p> 
+            <p>Email: <span>${cita.email}</span></p> 
+            <p>Telefono: <span>${cita.telefono}</span></p>
+            <h3>Servicios</h3>
+            `
+            cita.servicios.forEach(servicio => {
+                const parrafo = document.createElement('P');
+                parrafo.className = 'servicio';
+                parrafo.textContent = `${servicio.nombre}: ${servicio.precio}`
+                citaLi.appendChild(parrafo);
+            })
+
+            const totalServicios = cita.servicios.reduce((a, b) => {
+                return a + b.precio;
+            }, 0);
+            const precio = document.createElement('P');
+            precio.className = 'total-servicios';
+            precio.textContent= `Total: $${totalServicios}`;
+            citaLi.appendChild(precio);
+
+            const eliminarCitaBtn = document.createElement('BUTTON');
+            eliminarCitaBtn.className = 'boton-eliminar';
+            eliminarCitaBtn.textContent = 'Eliminar Cita';
+            eliminarCitaBtn.onclick = ()=> {
+                eliminarCita(cita.id);
+            }
+            citaLi.appendChild(eliminarCitaBtn);
+
+            listaCitas.appendChild(citaLi);
+
+        })
+
+        contenedor.appendChild(listaCitas);
+    }
+
+    mostrarLoader() {
+        const container = document.querySelector('#citas-container');
+        this.limpiarHTML(container);
+        const loader = document.createElement('SPAN');
+        loader.className = 'loader';
+        container.appendChild(loader);
+    }
+
+    limpiarHTML(node) {
+        while(node.firstChild) {
+            node.removeChild(node.firstChild);
+        }
+    }
 }

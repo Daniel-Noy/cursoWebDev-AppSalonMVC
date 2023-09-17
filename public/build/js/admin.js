@@ -1,2 +1,17 @@
-function iniciarApp(){buscarPorFecha(),eliminarCita()}function buscarPorFecha(){document.querySelector("#fecha").addEventListener("input",t=>{const e=t.target.value;e&&(window.location="?fecha="+e)})}function eliminarCita(){const t=document.querySelectorAll("form.eliminar-cita");t.length&&t.forEach(t=>{t.addEventListener("submit",e=>{e.preventDefault(),Swal.fire({title:"Borrar cita?",text:"No prodras recuperar esta cita",icon:"warning",showCancelButton:!0,cancelButtonText:"Cancelar",confirmButtonColor:"#0da6f3",cancelButtonColor:"#cb0000",confirmButtonText:"Borrar"}).then(e=>{e.isConfirmed&&(Swal.fire("Borrando","La cita se esta borrando."),setTimeout(()=>{t.submit()},1e3))})})})}document.addEventListener("DOMContentLoaded",()=>iniciarApp());
-//# sourceMappingURL=admin.js.map
+import { Fecha } from "./modules/Fecha.js";
+import { buscarCitas } from "./modules/funciones.js";
+
+document.addEventListener('DOMContentLoaded', iniciarAdmin);
+
+const fechaInput = document.querySelector('#fecha');
+
+const fecha = new Fecha;
+
+async function iniciarAdmin() {
+    fechaInput.value = fecha.fechaActual();
+    buscarCitas(fechaInput.value);
+
+    fechaInput.addEventListener('change', ()=> {
+        buscarCitas(fechaInput.value);
+    })
+}

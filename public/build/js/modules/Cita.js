@@ -60,7 +60,7 @@ export class Cita {
 
         try {
             // Peticion hacia la api
-            const url = `${location.origin}/api/citas`;
+            const url = `${location.origin}/api/citas/guardar`;
             const res = await fetch(url, {
                 method: 'POST',
                 body: datos
@@ -84,5 +84,19 @@ export class Cita {
                 text: 'Hubo un error al guardar la cita'
             })
         }
+    }
+
+    static async eliminarCita(id) {
+        const url = '/api/citas/eliminar';
+        const data = new FormData();
+        data.append('id', id);
+
+        const req = await fetch(url, {
+            method: 'POST',
+            body: data
+        })
+
+        const res = await req.json();
+        return res;
     }
 }
