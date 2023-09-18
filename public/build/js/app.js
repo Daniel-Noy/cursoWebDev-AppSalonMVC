@@ -34,7 +34,12 @@ function eventListeners() {
     inputHora.addEventListener('input', cita.editarHoraCita);
     
     paginaAnt.addEventListener('click', ui.paginaAnterior);
-    paginaSig.addEventListener('click', ui.paginaSiguiente);
+    paginaSig.addEventListener('click', ()=> {
+        ui.paginaSiguiente();
+        if(ui.paso === ui.pasoFinal) {
+            ui.mostrarResumen(cita);
+        }
+    });
 }
 
 function tabs() {

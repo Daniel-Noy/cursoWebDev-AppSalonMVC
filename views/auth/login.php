@@ -30,3 +30,8 @@
     <a href="/cuenta/crear">¿Aún no tienes cuenta? Crear una</a>
     <a href="/cuenta/password/olvide">¿Olvidaste tu contraseña?</a>
 </div>
+
+<div>
+    <p class="fs-tiny fw-bold">Admin: admin@correo.com</p>
+    <p class="fs-tiny fw-bold">Contraseña: superadmin</p>
+</div>
