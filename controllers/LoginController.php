@@ -12,6 +12,11 @@ class LoginController {
         if (isAdmin()) header('Location: /admin');
         if (isUser()) header('Location: /citas/agendar');
 
+        $tk = $_GET['tk'] ?? '';
+        if ($tk === "1") {
+            Usuario::setAlerta('exito', 'Cuenta creada correctamente');
+        }
+
         $auth = new Usuario();
         $alertas = [];
 
@@ -82,7 +87,7 @@ class LoginController {
 
                     if($res) {
                         // header("Location: /cuenta/confirmar/enviado"); //? Confirmación deshabilitada para la demostración
-                        header("Location: /");
+                        header("Location: /?tk=1");
                     }
 
                 } else {
